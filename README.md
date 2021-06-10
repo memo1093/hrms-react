@@ -3,4 +3,4 @@
 
 ## UML Diyagramı
 
-![UML DIAGRAM](https://imgur.com/a/e1D1khQ.png)
+![UML DIAGRAM](https://imgur.com/X9p9Jxz.png)
