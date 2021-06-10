@@ -11,7 +11,7 @@ export const Footer = () => {
         </Grid.Column>
         <Grid.Column>
           <p>Bu bir kodlamaio projesidir.</p>
-          <p>Tüm hakları kodlamaio ekibine</p>
+          <p>Tüm hakları kodlamaio ekibine</p> 
         </Grid.Column>
       </Grid>
       <Divider vertical>&</Divider>
