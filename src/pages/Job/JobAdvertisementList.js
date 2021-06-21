@@ -1,59 +1,89 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Header, Image, List, Reveal, Table } from "semantic-ui-react";
+import { mockComponent } from "react-dom/cjs/react-dom-test-utils.production.min";
+
+import { Link } from "react-router-dom";
+import {
+  Button,
+  Card,
+  Feed,
+  Grid,
+  GridColumn,
+  Header,
+  Icon,
+  Image,
+  Pagination,
+  Segment,
+  Table,
+} from "semantic-ui-react";
 import JobAdvertisementService from "../../services/JobAdvertisementService";
+import { JobAdvertisementModal } from "./JobAdvertisementModal";
+import moment from "moment";
+import "moment/locale/tr";
+import { Filter } from "../../layouts/Filter";
 
 export const JobAdvertisement = () => {
   const [jobAdvertisements, setjobAdvertisements] = useState([]);
+  moment.locale("tr");
+
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
       .getAllSorted()
       .then((result) => setjobAdvertisements(result.data.data))
       .catch((error) => console.log(error.message));
+  }, []);
 
-    }, []);
-    return (
-      <Grid padded>
-      <Grid.Row centered color="violet">
-      <Table stackable selectable padded inverted color="violet">
-    <Table.Header>
-      <Table.Row>
-      <Table.HeaderCell textAlign="center"></Table.HeaderCell>
-        <Table.HeaderCell textAlign="center">Şirket adı</Table.HeaderCell>
-        <Table.HeaderCell textAlign="center">İş</Table.HeaderCell>
-        <Table.HeaderCell textAlign="center">Açık pozisyon</Table.HeaderCell>
-        <Table.HeaderCell textAlign="center">Son Başvuru Tarihi</Table.HeaderCell>
-        <Table.HeaderCell textAlign="center">Yayımlanma Tarihi</Table.HeaderCell>
-      </Table.Row>
-    </Table.Header>
+  return (
+    <Grid padded divided columns={2}>
+      <Grid.Row stretched>
+      <Grid.Column width={4} only="computer tablet">
+        <Segment>
+            <Filter/>
 
-      {console.log(jobAdvertisements)}
-    <Table.Body>
-        {jobAdvertisements.map(jobadvertisement=>(
-             <Table.Row>
-             <Table.Cell textAlign="center" singleLine><Image src="/img/profile-pictures/profile.png" size="mini"/></Table.Cell>
-             <Table.Cell textAlign="center" singleLine>{jobadvertisement.employer.companyName}</Table.Cell>
-             <Table.Cell textAlign="center" singleLine>{jobadvertisement.jobPosition.position}</Table.Cell>
-             <Table.Cell singleLine textAlign="center">{jobadvertisement.activePositions}</Table.Cell>
-             <Table.Cell singleLine textAlign="center">{jobadvertisement.lastApplicationDate}</Table.Cell>
-             <Table.Cell singleLine textAlign="center">{jobadvertisement.releaseDate}</Table.Cell>
-            
-            
-           </Table.Row>
-        ))}
-       
+        </Segment>
+          </Grid.Column>
+          <Grid.Column width={12}>
+      {jobAdvertisements.map((jobAdvertisement) => (
+        
+            <Segment>
+          <Card fluid color="violet" link as={Link} to={`/jobAdvertisements/${jobAdvertisement.id}`}>
+            <Card.Content>
+              <Feed>
+                <Feed.Event>
+                  {jobAdvertisement.employer?.companyPicture ? (
+                    <Feed.Label
+                    
+                      image={jobAdvertisement.employer?.companyPicture}
+                    />
+                  ):(<Feed.Label
+                    icon="globe"
+                  />)}
+                  <Feed.Content>
+                    <Feed.Date
+                      content={moment(jobAdvertisement.releaseDate)
+                        .startOf("day")
+                        .fromNow()}
+                    />
+                    <Feed.Summary>
+                      {jobAdvertisement.jobPosition?.position}
+                    </Feed.Summary>
+                  </Feed.Content>
+                </Feed.Event>
+              </Feed>
+              <Card.Meta>{jobAdvertisement.jobTime.type}</Card.Meta>
+              <Card.Meta>{jobAdvertisement.jobType.type}</Card.Meta>
+              <Card.Description>
+               İlan sahibi - {jobAdvertisement.employer?.companyName}
+              </Card.Description>
+            </Card.Content>
+          </Card>
+          
+          </Segment>
+          ))}
+          </Grid.Column>
+          </Grid.Row>
+
       
-    </Table.Body>
-  </Table>
-        {/* <Header inverted>
-          <Header.Content as="h2">- Güncel İş İlanları -</Header.Content>
-          <List>
-            {jobAdvertisements.map((jobAdvertisement) => (
-              <List.Item key={jobAdvertisement.id}>{jobAdvertisement.jobPosition.position}</List.Item>
-            ))}
-          </List>
-        </Header> */}
-      </Grid.Row>
     </Grid>
   );
 };

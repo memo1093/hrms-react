@@ -7,4 +7,9 @@ export default class JobAdvertisementService{
     getAllSorted(){
         return axios.get("http://localhost:8080/api/jobAdvertisements/getAllSorted")
     }
+    getById(id){
+        return axios.get("http://localhost:8080/api/jobAdvertisements/getById?id="+id)
+    }
+  
 }
+
