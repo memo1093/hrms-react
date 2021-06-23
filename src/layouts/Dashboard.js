@@ -13,19 +13,21 @@ import { Jumbotron } from "./Jumbotron";
 import { Navbar } from "./Navbar";
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from "react-router-dom";
+import { AddJobAdvertisement } from "../pages/Job/AddJobAdvertisement";
 
 
 export const Dashboard = () => {
   const location = useLocation()
   return (
     <div>
-      <Navbar location={location.pathname}/>
+      <Navbar/>
      <Jumbotron location={location.pathname}/>
       
       <Route exact path="/jobAdvertisements" component={JobAdvertisement} />
       <Route exact path="/jobAdvertisements/:id" component={JobAdvertisementDetails} />
       <Route exact path="/employers" component={EmployersList} />
       <Route exact path="/candidates" component={CandidateList} />
+      <Route exact path="/addJobAdvertisement" component={AddJobAdvertisement} />
       <Route exact path="/" component={HomePage} />
       <ToastContainer
         position="bottom-right"

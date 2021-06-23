@@ -7,16 +7,11 @@ import {
   Card,
   Feed,
   Grid,
-  GridColumn,
-  Header,
-  Icon,
-  Image,
-  Pagination,
+  
   Segment,
-  Table,
+ 
 } from "semantic-ui-react";
 import JobAdvertisementService from "../../services/JobAdvertisementService";
-import { JobAdvertisementModal } from "./JobAdvertisementModal";
 import moment from "moment";
 import "moment/locale/tr";
 import { Filter } from "../../layouts/Filter";
@@ -34,7 +29,7 @@ export const JobAdvertisement = () => {
   }, []);
 
   return (
-    <Grid padded divided columns={2}>
+    <Grid centered padded columns={2}>
       <Grid.Row stretched>
       <Grid.Column width={4} only="computer tablet">
         <Segment>
@@ -45,7 +40,6 @@ export const JobAdvertisement = () => {
           <Grid.Column width={12}>
       {jobAdvertisements.map((jobAdvertisement) => (
         
-            <Segment>
           <Card fluid color="violet" link as={Link} to={`/jobAdvertisements/${jobAdvertisement.id}`}>
             <Card.Content>
               <Feed>
@@ -78,7 +72,6 @@ export const JobAdvertisement = () => {
             </Card.Content>
           </Card>
           
-          </Segment>
           ))}
           </Grid.Column>
           </Grid.Row>
