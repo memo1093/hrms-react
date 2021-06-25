@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { mockComponent } from "react-dom/cjs/react-dom-test-utils.production.min";
-
 import { Link } from "react-router-dom";
 import {
-  Button,
   Card,
   Feed,
   Grid,
-  
   Segment,
  
 } from "semantic-ui-react";
@@ -23,7 +19,7 @@ export const JobAdvertisement = () => {
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService
-      .getAllSorted()
+      .getAllSorted(1,5)
       .then((result) => setjobAdvertisements(result.data.data))
       .catch((error) => console.log(error.message));
   }, []);

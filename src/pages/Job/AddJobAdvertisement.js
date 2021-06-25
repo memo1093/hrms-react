@@ -92,7 +92,7 @@ export const AddJobAdvertisement = () => {
     },
     validationSchema: yup.object().shape({
       jobPositionId: yup.number().required("Pozisyon boş bırakılamaz"),
-      description: yup.string().required("Açıklama alanı boş bırakılamaz").test('len', 'Açıklama kısmı minimum 10 karakter içermelidir', val => val.length === 10),
+      description: yup.string().required("Açıklama alanı boş bırakılamaz"),
       minSalary: yup
         .number("Lütfen sayısal bir değer giriniz")
         .min(0, "Minimum maaş değeri 0 dan küçük olamaz"),

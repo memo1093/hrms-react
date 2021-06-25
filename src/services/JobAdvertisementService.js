@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export default class JobAdvertisementService{
-    getAll(){
-        return axios.get("http://localhost:8080/api/jobAdvertisements/getAll")
+    getAll(pageNo,pageSize){
+        return axios.get(`http://localhost:8080/api/jobAdvertisements/getAll?pageNo=${pageNo}&pageSize=${pageSize}`)
     }
-    getAllSorted(){
-        return axios.get("http://localhost:8080/api/jobAdvertisements/getAllSorted")
+    getAllSorted(pageNo,pageSize){
+        return axios.get(`http://localhost:8080/api/jobAdvertisements/getAllSorted?pageNo=${pageNo}&pageSize=${pageSize}`)
     }
     getById(id){
         return axios.get("http://localhost:8080/api/jobAdvertisements/getById?id="+id)

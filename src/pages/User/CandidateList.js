@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Image, Table } from 'semantic-ui-react'
-import CandidateService from '../../services/CandidateService'
+import { useDispatch, useSelector } from 'react-redux'
+import { Grid, Image,  Pagination,  Table } from 'semantic-ui-react'
+
+
+
+import { getAllCandidates } from '../../store/actions/candidateActions'
 
 export const CandidateList = () => {
-    const [candidates, setCandidates] = useState([])
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getAllCandidates(page))
+    setTotalPages(candidates.candidates.totalPages)
     
-    useEffect(() => {
-        let candidateService = new CandidateService()
-        candidateService.getAll().then(result=>setCandidates(result.data.data))
-    }, [])
+  }, [page])
+  
+  const candidates = useSelector(state => state.candidates)
+    
    
     return (
         <Grid>
          
         <Grid.Row centered color="violet">
           <Table stackable selectable padded inverted color="violet">
-
+          
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell textAlign="center" content="Profil Resmi"/>
@@ -26,7 +35,8 @@ export const CandidateList = () => {
             </Table.Header>
   
             <Table.Body>
-              {candidates.map(candidate => (
+             
+              {candidates.loading?(<Image src="./img/loading.gif"/>):candidates.candidates.content.map(candidate => (
                 <Table.Row key={candidate.id} >
                   <Table.Cell textAlign="center" singleLine>
                     {candidate.profilePicture?(<Image src={candidate.profilePicture} avatar centered/>):""}
@@ -40,7 +50,10 @@ export const CandidateList = () => {
                 </Table.Row>
               ))}
             </Table.Body>
+            
+
           </Table>
+           <Pagination defaultActivePage={page} onPageChange={(e,{activePage})=>setPage(activePage)} totalPages={totalPages} secondary inverted/>
         </Grid.Row>
       </Grid>
     )
