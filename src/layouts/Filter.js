@@ -2,15 +2,7 @@ import moment from "moment";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Radio,
-  Select,
-  TextArea,
-} from "semantic-ui-react";
+import { Form, Input, Select } from "semantic-ui-react";
 import CityService from "../services/CityService";
 import JobPositionService from "../services/JobPositionService";
 
@@ -78,7 +70,6 @@ export const Filter = () => {
       <Form.Field label="Tarih" />
       {dateOptions.map((option) => (
         <Form.Radio
-          defaultChecked={option.value === "1"}
           onChange={(e, { value }) => setCheckedDate(value)}
           checked={checkedDate === option.value}
           key={option.key}
@@ -106,8 +97,11 @@ export const Filter = () => {
       {jobPositionOptions.map((option) => (
         <Form.Checkbox
           onChange={(e, { value }) => {
-            setCheckedJobs(checkedJobs.includes(value)?[...checkedJobs.filter(i=>i!==value)]:[...checkedJobs, value]);
-            
+            setCheckedJobs(
+              checkedJobs.includes(value)
+                ? [...checkedJobs.filter((i) => i !== value)]
+                : [...checkedJobs, value]
+            );
           }}
           key={option.key}
           label={option.text}

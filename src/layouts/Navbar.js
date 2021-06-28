@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import {
   Button,
   Dropdown,
@@ -46,7 +46,7 @@ export const Navbar = ({ location }) => {
 
             <Dropdown item text="Profil">
               <Dropdown.Menu>
-                <Dropdown.Item>Özgeçmiş</Dropdown.Item>
+                <Dropdown.Item as={NavLink} exact to="/resumes/30">Özgeçmişler</Dropdown.Item>
                 <Dropdown.Item>İş Alarmları</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
@@ -90,10 +90,10 @@ export const Navbar = ({ location }) => {
                   </Header>
                   <Dropdown.Divider />
                   <Dropdown.Header>
-                    <a>Şifremi unuttum</a>
+                    <Link to="#">Şifremi unuttum</Link>
                   </Dropdown.Header>
                   <Dropdown.Header>
-                    <a>Kaydol</a>
+                    <Link to="/addUser">Kaydol</Link>
                   </Dropdown.Header>
                 </Dropdown.Menu>
               </Dropdown>

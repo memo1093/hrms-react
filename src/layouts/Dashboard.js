@@ -5,7 +5,6 @@ import { Segment } from "semantic-ui-react";
 import { HomePage } from "../pages/HomePage";
 import { JobAdvertisementDetails } from "../pages/Job/JobAdvertisementDetails";
 import { JobAdvertisement } from "../pages/Job/JobAdvertisementList";
-import { JobPositionGuide } from "../pages/Job/JobPositionGuide";
 import { CandidateList } from "../pages/User/CandidateList";
 import { EmployersList } from "../pages/User/EmployersList";
 import { Footer } from "./Footer";
@@ -14,6 +13,10 @@ import { Navbar } from "./Navbar";
 import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from "react-router-dom";
 import { AddJobAdvertisement } from "../pages/Job/AddJobAdvertisement";
+import { EmployeeList } from "../pages/User/EmployeeList";
+import { UpdateResume } from "../pages/Resume/UpdateResume";
+import { Resumes } from "../pages/Resume/Resumes";
+import { ResumeDetails } from "../pages/Resume/ResumeDetails";
 
 
 export const Dashboard = () => {
@@ -27,7 +30,11 @@ export const Dashboard = () => {
       <Route exact path="/jobAdvertisements/:id" component={JobAdvertisementDetails} />
       <Route exact path="/employers" component={EmployersList} />
       <Route exact path="/candidates" component={CandidateList} />
+      <Route exact path="/employees" component={EmployeeList} />
       <Route exact path="/addJobAdvertisement" component={AddJobAdvertisement} />
+      <Route exact path="/updateResume/:id" component={UpdateResume} />
+      <Route exact path="/resumes/:id" component={Resumes} />
+      <Route exact path="/resume/:id" component={ResumeDetails} />
       <Route exact path="/" component={HomePage} />
       <ToastContainer
         position="bottom-right"

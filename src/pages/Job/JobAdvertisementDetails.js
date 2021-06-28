@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
-import { Card, Item, Image, Button, Icon, Grid } from "semantic-ui-react";
+import { Item, Button, Icon, Grid } from "semantic-ui-react";
 import JobAdvertisementService from "../../services/JobAdvertisementService";
 
 export const JobAdvertisementDetails = () => {
@@ -14,7 +14,7 @@ export const JobAdvertisementDetails = () => {
       .getById(id)
       .then((result) => setJobAdvertisement(result.data.data))
       .catch((error) => console.log(error.message));
-  }, []);
+  }, [id]);
   const application = () => {
     
     toast.info(

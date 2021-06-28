@@ -80,7 +80,7 @@ export const AddJobAdvertisement = () => {
       lastApplicationDate: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      
       let jobAdvertisementService = new JobAdvertisementService();
       jobAdvertisementService
         .add(values)
@@ -116,7 +116,7 @@ export const AddJobAdvertisement = () => {
   return (
     <Container>
       <Form onSubmit={formik.handleSubmit}>
-        <Form.Field grouped>
+        <Form.Field>
           <Form.Select
           required
             id="jobPositionId"
@@ -186,10 +186,11 @@ export const AddJobAdvertisement = () => {
           error={formik.errors.maxSalary}
         />
 
-        <Form.Field required grouped widths="equal">
+        <Form.Field required widths="equal">
           <label>Çalışma tipi</label>
           {jobTypes.map((jobType) => (
             <Form.Radio
+            key={jobType.id}
               id={`jobTypeId-${jobType.id}`}
               name="jobTypeId"
               label={jobType.type}
@@ -209,6 +210,7 @@ export const AddJobAdvertisement = () => {
           <label>Çalışma Zamanı</label>
           {jobTimes.map((jobTime) => (
             <Form.Radio
+            key={jobTime.id}
               id={`jobTimeId-${jobTime.id}`}
               name="jobTimeId"
               label={jobTime.type}
@@ -249,7 +251,6 @@ export const AddJobAdvertisement = () => {
             onSelect={(date) => setlastApplicationDate(date)}
             onChange={(value) => {
               formik.setFieldValue("lastApplicationDate", moment(value).format('YYYY-MM-DD'));
-              console.log(moment(value).format('YYYY-MM-DD'))
             }}
           />
           {formik.touched.lastApplicationDate && formik.errors.lastApplicationDate && (

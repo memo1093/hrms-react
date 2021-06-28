@@ -1,4 +1,4 @@
-import { CHANGE_ACTIVATION_FAILURE, CHANGE_ACTIVATION_SUCCESS, GET_ALL_EMPLOYER_FAILURE, GET_ALL_EMPLOYER_SUCCESS} from "../actions/employerActions";
+import { CHANGE_EMPLOYER_ACTIVATION_FAILURE, CHANGE_EMPLOYER_ACTIVATION_SUCCESS, GET_ALL_EMPLOYER_FAILURE, GET_ALL_EMPLOYER_SUCCESS} from "../actions/employerActions";
 import { employers, loading, message } from "../initialValues/employers";
 
 
@@ -26,13 +26,13 @@ export default function employerReducer(state=initialState,{type,payload}){
                 loading:false
             }
        
-        case CHANGE_ACTIVATION_SUCCESS:
-            let employerIndex= state.employers.findIndex(employer=>employer.id===payload.id)
+        case CHANGE_EMPLOYER_ACTIVATION_SUCCESS:
+            let employerIndex= state.employers.content.findIndex(employer=>employer.id===payload.id)
             return{
                 ...state,
-                employers:state.employers.map((employer,i)=>i===employerIndex?{...employer,activated:!payload.activated}:employer)
+                employers:{...employers,content:state.employers.content.map((employer,i)=>i===employerIndex?{...employer,activated:!payload.activated}:employer)}
             }
-        case CHANGE_ACTIVATION_FAILURE:
+        case CHANGE_EMPLOYER_ACTIVATION_FAILURE:
             return{
                 ...state,
                 message:payload

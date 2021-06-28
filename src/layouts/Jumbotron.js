@@ -1,6 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-import { Grid, Header, Icon, Image, Input } from "semantic-ui-react";
+import { Header, Icon, Image } from "semantic-ui-react";
 import { SearchBar } from "./SearchBar";
 
 export const Jumbotron = ({location}) => {

@@ -36,7 +36,7 @@ export const JobAdvertisement = () => {
           <Grid.Column width={12}>
       {jobAdvertisements.map((jobAdvertisement) => (
         
-          <Card fluid color="violet" link as={Link} to={`/jobAdvertisements/${jobAdvertisement.id}`}>
+          <Card key={jobAdvertisement.id} fluid color="violet" link as={Link} to={`/jobAdvertisements/${jobAdvertisement.id}`}>
             <Card.Content>
               <Feed>
                 <Feed.Event>

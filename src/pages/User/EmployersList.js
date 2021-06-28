@@ -1,22 +1,24 @@
 import React, { useEffect, useState} from "react";
-import { Button, Grid, Image, Pagination, Table } from "semantic-ui-react";
+import { Button, Grid, Image, Table } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  
   changeActivation,
   getAllEmployers,
 } from "../../store/actions/employerActions";
 import { toast } from "react-toastify";
+import { Paginate } from "../../layouts/Paginate";
 
 export const EmployersList = () => {
 
   const [page, setPage] = useState(1)
-  const [totalPages, setTotalPages] = useState(1)
-  
+  const [pageSize, setpageSize] = useState(10)
+    
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getAllEmployers(page));
-  }, [page]);
+    dispatch(getAllEmployers(page,pageSize));
+  }, [dispatch, page, pageSize]);
   
   const employers = useSelector((state) => state.employers);
   
@@ -29,6 +31,7 @@ export const EmployersList = () => {
 
   return (
     <Grid>
+        {employers.loading?(<Image src="./img/loading.gif"/>):
       <Grid.Row centered color="violet">
         <Table stackable selectable padded inverted color="violet">
           <Table.Header>
@@ -51,7 +54,7 @@ export const EmployersList = () => {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {employers.loading?(<Image src="./img/loading.gif"/>):employers.employers.content.map((employer) => (
+            {employers.employers.content.map((employer) => (
               <Table.Row key={employer.id} negative={employer.activated?false:true}>
                 <Table.Cell textAlign="center" singleLine>
                   {employer.companyPicture ? (
@@ -86,9 +89,16 @@ export const EmployersList = () => {
             ))}
           </Table.Body>
         </Table>
-             <Pagination defaultActivePage={page} onPageChange={(e,{activePage})=>setPage(activePage)} totalPages={totalPages} secondary inverted/>
-
-      </Grid.Row>
+          <Paginate
+          page={page}
+          setPage={setPage}
+          setpageSize={setpageSize}
+          totalPages={employers.employers.totalPages}
+          
+          />
+        
+        </Grid.Row>
+        }
     </Grid>
   );
 };

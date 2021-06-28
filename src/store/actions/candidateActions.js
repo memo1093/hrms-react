@@ -5,8 +5,8 @@ export const GET_ALL_CANDIDATES_FAILURE="GET_ALL_CANDIDATES_FAILURE"
 
 
 let candidateService = new CandidateService()
-export const  getAllCandidates=(pageNo)=>async dispatch=>{
-       await candidateService.getAll(pageNo,5)
+export const  getAllCandidates=(pageNo,pageSize)=>async dispatch=>{
+    await candidateService.getAll(pageNo,pageSize)
     .then(response=>dispatch({
         type:GET_ALL_CANDIDATES_SUCCESS,
         payload:response.data.data
