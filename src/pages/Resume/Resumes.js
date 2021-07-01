@@ -21,7 +21,7 @@ export const Resumes = () => {
     <Card padded centered key={resume.id} fluid color="violet">
       <Card.Content>
         {resume.profilePicture && (
-          <Image floated="right" size="mini" src={resume.profilePicture} />
+          <Image floated="right" avatar src={resume.profilePicture} />
         )}
         <Card.Header>{resume.title}</Card.Header>
         <Card.Meta>

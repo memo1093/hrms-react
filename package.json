@@ -26,6 +26,7 @@
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },
+  "port": "http://127.0.0.1:8080/", 
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

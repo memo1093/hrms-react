@@ -90,6 +90,7 @@ export const EmployersList = () => {
           </Table.Body>
         </Table>
           <Paginate
+          inverted
           page={page}
           setPage={setPage}
           setpageSize={setpageSize}

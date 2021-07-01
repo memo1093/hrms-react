@@ -22,8 +22,7 @@ export default function candidateReducer(state=initialState,{payload,type}) {
                 message:payload,
                 loading:false
             }
-            
-    
+           
         default:
             return state;
     }

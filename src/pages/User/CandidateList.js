@@ -62,6 +62,7 @@ export const CandidateList = () => {
             </Table.Body>
           </Table>
         <Paginate
+        inverted
           page={page}
           setPage={setPage}
           setpageSize={setpageSize}

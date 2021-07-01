@@ -80,13 +80,12 @@ export const AddJobAdvertisement = () => {
       lastApplicationDate: "",
     },
     onSubmit: (values) => {
-      
       let jobAdvertisementService = new JobAdvertisementService();
       jobAdvertisementService
         .add(values)
         .then((result) => {
           toast.success(`İş ilanı başarıyla eklendi`);
-          history.push("/jobAdvertisements")
+          history.push("/jobAdvertisements");
         })
         .catch((error) => console.log(error.message));
     },
@@ -118,7 +117,7 @@ export const AddJobAdvertisement = () => {
       <Form onSubmit={formik.handleSubmit}>
         <Form.Field>
           <Form.Select
-          required
+            required
             id="jobPositionId"
             label="Pozisyon"
             placeholder="Pozisyon ara"
@@ -136,7 +135,7 @@ export const AddJobAdvertisement = () => {
             error={formik.touched.jobPositionId && formik.errors.jobPositionId}
           />
           <Form.Input
-          required
+            required
             id="activePositions"
             label="Açık pozisyon sayısı"
             width={16}
@@ -145,12 +144,14 @@ export const AddJobAdvertisement = () => {
             value={formik.values.activePositions}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.activePositions && formik.errors.activePositions}
+            error={
+              formik.touched.activePositions && formik.errors.activePositions
+            }
           />
 
           <Form.Field width={16}>
             <Form.TextArea
-            required
+              required
               name="description"
               id="description"
               label="Açıklama"
@@ -190,7 +191,7 @@ export const AddJobAdvertisement = () => {
           <label>Çalışma tipi</label>
           {jobTypes.map((jobType) => (
             <Form.Radio
-            key={jobType.id}
+              key={jobType.id}
               id={`jobTypeId-${jobType.id}`}
               name="jobTypeId"
               label={jobType.type}
@@ -199,18 +200,18 @@ export const AddJobAdvertisement = () => {
                 formik.setFieldValue("jobTypeId", { value }.value)
               }
               checked={formik.values.jobTypeId === jobType.id}
-              
             />
           ))}
-          {formik.touched.jobTypeId && formik.errors.jobTypeId&&
-          <Message negative>
+          {formik.touched.jobTypeId && formik.errors.jobTypeId && (
+            <Message negative>
               {formik.touched.jobTypeId && formik.errors.jobTypeId}
-            </Message>}
-         
+            </Message>
+          )}
+
           <label>Çalışma Zamanı</label>
           {jobTimes.map((jobTime) => (
             <Form.Radio
-            key={jobTime.id}
+              key={jobTime.id}
               id={`jobTimeId-${jobTime.id}`}
               name="jobTimeId"
               label={jobTime.type}
@@ -219,13 +220,13 @@ export const AddJobAdvertisement = () => {
                 formik.setFieldValue("jobTimeId", { value }.value)
               }
               checked={formik.values.jobTimeId === jobTime.id}
-              
             />
           ))}
-          {formik.touched.jobTimeId && formik.errors.jobTimeId&&
-          <Message negative>
+          {formik.touched.jobTimeId && formik.errors.jobTimeId && (
+            <Message negative>
               {formik.touched.jobTimeId && formik.errors.jobTimeId}
-            </Message>}
+            </Message>
+          )}
         </Form.Field>
         <Form.Field>
           <Form.Select
@@ -247,17 +248,25 @@ export const AddJobAdvertisement = () => {
           <label>Son Başvuru Tarihi</label>
           <DatePicker
             locale={tr}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
             selected={lastApplicationDate}
             onSelect={(date) => setlastApplicationDate(date)}
             onChange={(value) => {
-              formik.setFieldValue("lastApplicationDate", moment(value).format('YYYY-MM-DD'));
+              formik.setFieldValue(
+                "lastApplicationDate",
+                moment(value).format("YYYY-MM-DD")
+              );
             }}
           />
-          {formik.touched.lastApplicationDate && formik.errors.lastApplicationDate && (
-            <Message negative>
-              {formik.touched.lastApplicationDate && formik.errors.lastApplicationDate}
-            </Message>
-          )}
+          {formik.touched.lastApplicationDate &&
+            formik.errors.lastApplicationDate && (
+              <Message negative>
+                {formik.touched.lastApplicationDate &&
+                  formik.errors.lastApplicationDate}
+              </Message>
+            )}
         </Form.Field>
         <Form.Field>
           <Grid>

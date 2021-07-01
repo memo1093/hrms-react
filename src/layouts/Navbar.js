@@ -13,7 +13,6 @@ import {
 export const Navbar = ({ location }) => {
   const [show, setShow] = useState(false);
 
-  
   return (
     <Grid style={{ marginBottom: "3.5rem" }}>
       <Grid.Row>
@@ -39,19 +38,26 @@ export const Navbar = ({ location }) => {
                 </Grid.Row>
               </Grid>
             </Grid.Column>
-            
+
             <Menu.Item as={NavLink} exact to="/">
               Ana Sayfa
             </Menu.Item>
 
             <Dropdown item text="Profil">
               <Dropdown.Menu>
-                <Dropdown.Item as={NavLink} exact to="/resumes/30">Özgeçmişler</Dropdown.Item>
+                <Dropdown.Item as={NavLink} exact to="/resumes/30">
+                  Özgeçmişler
+                </Dropdown.Item>
+                {/* //! Session tamamlandığında candidateId=30 */}
                 <Dropdown.Item>İş Alarmları</Dropdown.Item>
+                <Dropdown.Item as={NavLink} exact to="/favorites/26">
+                  Favoriler
+                </Dropdown.Item>
+                {/* //! Session tamamlandığında candidateId=26 */}
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>
-        
+
           <Menu.Menu position="right">
             <Menu.Item
               as={NavLink}

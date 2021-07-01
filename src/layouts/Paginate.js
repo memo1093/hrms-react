@@ -1,7 +1,7 @@
 import React from 'react'
 import { Pagination, Select } from 'semantic-ui-react'
 
-export const Paginate = ({page,setPage,totalPages,setpageSize}) => {
+export const Paginate = ({page,setPage,totalPages,setpageSize,inverted}) => {
     const pageSizeOptions = [
         { key: "1", value: "10", text: "10" },
         { key: "2", value: "20", text: "20" },
@@ -15,7 +15,7 @@ export const Paginate = ({page,setPage,totalPages,setpageSize}) => {
           onPageChange={(e, { activePage }) => setPage(activePage)}
           totalPages={totalPages}
           secondary
-          inverted
+          inverted={inverted}
           ellipsisItem={null}
           firstItem={null}
           lastItem={null}

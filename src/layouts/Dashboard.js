@@ -14,9 +14,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useLocation } from "react-router-dom";
 import { AddJobAdvertisement } from "../pages/Job/AddJobAdvertisement";
 import { EmployeeList } from "../pages/User/EmployeeList";
-import { UpdateResume } from "../pages/Resume/UpdateResume";
+
 import { Resumes } from "../pages/Resume/Resumes";
 import { ResumeDetails } from "../pages/Resume/ResumeDetails";
+import { FavoriteAdvertisementList } from "../pages/Job/FavoriteAdvertisementList";
 
 
 export const Dashboard = () => {
@@ -32,10 +33,12 @@ export const Dashboard = () => {
       <Route exact path="/candidates" component={CandidateList} />
       <Route exact path="/employees" component={EmployeeList} />
       <Route exact path="/addJobAdvertisement" component={AddJobAdvertisement} />
-      <Route exact path="/updateResume/:id" component={UpdateResume} />
       <Route exact path="/resumes/:id" component={Resumes} />
       <Route exact path="/resume/:id" component={ResumeDetails} />
+      <Route exact path="/favorites/:id" component={FavoriteAdvertisementList} />
       <Route exact path="/" component={HomePage} />
+
+      
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
