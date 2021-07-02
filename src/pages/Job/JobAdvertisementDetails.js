@@ -7,7 +7,7 @@ import JobAdvertisementService from "../../services/JobAdvertisementService";
 export const JobAdvertisementDetails = () => {
   let { id } = useParams();
   const [jobAdvertisement, setJobAdvertisement] = useState({});
-
+  
   useEffect(() => {
     let jobAdvertisementService = new JobAdvertisementService();
     jobAdvertisementService

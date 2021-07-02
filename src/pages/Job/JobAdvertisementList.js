@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Card, Feed, Grid, Segment } from "semantic-ui-react";
+import { Card, Feed, Grid, Segment } from "semantic-ui-react";
 import moment from "moment";
 import "moment/locale/tr";
 import { Filter } from "../../layouts/Filter";
@@ -8,8 +8,7 @@ import { Paginate } from "../../layouts/Paginate";
 import { Favorite } from "../../layouts/Favorite";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoritesByCandidateId } from "../../store/actions/favoritesActions";
-import { getAllJobAdvertisementsSorted, getByFilterWithPages } from "../../store/actions/jobAdvertisementActions";
-import { removeFilter } from "../../store/actions/filterActions";
+import { getByFilterWithPages } from "../../store/actions/jobAdvertisementActions";
 
 export const JobAdvertisement = () => {
   const jobAdvertisements = useSelector(state => state.jobAdvertisements.jobAdvertisements)
@@ -44,32 +43,34 @@ export const JobAdvertisement = () => {
           </Segment>
         </Grid.Column>
         <Grid.Column width={12}>
+
           {jobAdvertisements.content?.map((jobAdvertisement) => (
             <Card
-              key={jobAdvertisement.id}
-              fluid
-              color="violet"
-              link
-              as={Link}
-              to={`/jobAdvertisements/${jobAdvertisement.id}`}
-              
+            raised
+            key={jobAdvertisement.id}
+            fluid
+            color="violet"
+            
+            as={Link}
+            to={`/jobAdvertisements/${jobAdvertisement.id}`}
+            
             >
               <Card.Content>
                 <Feed>
                   <Feed.Event>
                     {jobAdvertisement.employer?.companyPicture ? (
                       <Feed.Label
-                        image={jobAdvertisement.employer?.companyPicture}
+                      image={jobAdvertisement.employer?.companyPicture}
                       />
-                    ) : (
-                      <Feed.Label icon="globe" />
-                    )}
+                      ) : (
+                        <Feed.Label icon="globe" />
+                        )}
                     <Feed.Content>
                       <Feed.Date
                         content={moment(jobAdvertisement.releaseDate)
                           .startOf("day")
                           .fromNow()}
-                      />
+                          />
                       <Feed.Summary>
                         {jobAdvertisement.jobPosition?.position}
                         <Favorite
@@ -79,7 +80,7 @@ export const JobAdvertisement = () => {
                           candidateId={26}
                           jobAdvertisement={jobAdvertisement}
                           willBeDeleted={isFavorite(jobAdvertisement.id)}
-                        />
+                          />
                         {/* //!Session candidateId */}
                       </Feed.Summary>
                     </Feed.Content>
@@ -100,7 +101,7 @@ export const JobAdvertisement = () => {
         setPage={setPage}
         setpageSize={setpageSize}
         totalPages={jobAdvertisements.totalPages}
-      />
+        />
     </Grid>
   );
 };

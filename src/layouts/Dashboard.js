@@ -11,7 +11,7 @@ import { Footer } from "./Footer";
 import { Jumbotron } from "./Jumbotron";
 import { Navbar } from "./Navbar";
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { AddJobAdvertisement } from "../pages/Job/AddJobAdvertisement";
 import { EmployeeList } from "../pages/User/EmployeeList";
 
@@ -25,7 +25,8 @@ import { clearFilter } from "../store/actions/filterActions";
 export const Dashboard = () => {
   const location = useLocation()
   const dispatch = useDispatch()
-  location.pathname!=="/jobAdvertisements"&&dispatch(clearFilter())
+  console.log(location.pathname);
+  !location.pathname.startsWith("/jobAdvertisements")&&dispatch(clearFilter())
   return (
     <div>
       <Navbar/>

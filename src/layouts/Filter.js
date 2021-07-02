@@ -1,5 +1,4 @@
 import { useFormik } from "formik";
-import { filter } from "lodash-es";
 import moment from "moment";
 import React from "react";
 import { useState } from "react";
@@ -12,7 +11,6 @@ import JobPositionService from "../services/JobPositionService";
 import { addFilter, clearFilter } from "../store/actions/filterActions";
 
 export const Filter = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
   const [cities, setCities] = useState([]);
   const [jobPositions, setjobPositions] = useState([]);
@@ -23,7 +21,6 @@ export const Filter = () => {
   const [searchCity, setsearchCity] = useState("");
 
   const filters = useSelector((state) => state.filters.filters);
-  console.log(location.pathname);
   const jobTimeOptions = [];
   const jobTypeOptions = [];
   const cityOptions = [];
@@ -68,7 +65,7 @@ export const Filter = () => {
     },
   });
   const handleFiltersRemove = () => {
-    dispatch(clearFilter())
+    dispatch(clearFilter());
     formik.resetForm(formik.values);
   };
   useEffect(() => {
@@ -93,8 +90,7 @@ export const Filter = () => {
       .getAllJobTypes()
       .then((result) => setJobTypes(result.data.data))
       .catch((error) => console.log(error.message));
-    
-  }, [filters, location.pathname, formik.values]);
+  }, [filters, formik.values]);
 
   cities
     .filter((city) =>
@@ -243,20 +239,18 @@ export const Filter = () => {
             <Grid.Column textAlign="center">
               <Button type="submit" color="violet" content="Ara" />
               <Button
-              type="submit"
-              onClick={() => handleFiltersRemove()}
-              color="violet"
-              content="Filtreyi Temizle"
-            />
+                type="submit"
+                onClick={() => handleFiltersRemove()}
+                color="violet"
+                content="Filtreyi Temizle"
+              />
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Form>
       <Grid>
         <Grid.Row centered>
-          <Grid.Column textAlign="center">
-            
-          </Grid.Column>
+          <Grid.Column textAlign="center"></Grid.Column>
         </Grid.Row>
       </Grid>
     </>
