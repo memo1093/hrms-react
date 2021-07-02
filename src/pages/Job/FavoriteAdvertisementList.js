@@ -1,12 +1,10 @@
 import moment from "moment";
 import React from "react";
 import { useEffect } from "react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Feed, Grid, Card, Message } from "semantic-ui-react";
 import { Favorite } from "../../layouts/Favorite";
-import FavoritesService from "../../services/FavoritesService";
 import { getFavoritesByCandidateId } from "../../store/actions/favoritesActions";
 
 export const FavoriteAdvertisementList = () => {

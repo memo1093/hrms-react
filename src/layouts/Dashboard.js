@@ -18,13 +18,18 @@ import { EmployeeList } from "../pages/User/EmployeeList";
 import { Resumes } from "../pages/Resume/Resumes";
 import { ResumeDetails } from "../pages/Resume/ResumeDetails";
 import { FavoriteAdvertisementList } from "../pages/Job/FavoriteAdvertisementList";
+import { useDispatch } from "react-redux";
+import { clearFilter } from "../store/actions/filterActions";
 
 
 export const Dashboard = () => {
   const location = useLocation()
+  const dispatch = useDispatch()
+  location.pathname!=="/jobAdvertisements"&&dispatch(clearFilter())
   return (
     <div>
       <Navbar/>
+      
      <Jumbotron location={location.pathname}/>
       
       <Route exact path="/jobAdvertisements" component={JobAdvertisement} />

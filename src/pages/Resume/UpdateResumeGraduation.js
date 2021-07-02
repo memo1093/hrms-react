@@ -34,6 +34,7 @@ export const UpdateResumeGraduation = ({
     },
     onSubmit: (values) => {
         dispatch(updateGraduation(values))
+        toast.success("Mezuniyet bilgisi güncellendi")
         setUpdateable(false)
     },
     validationSchema: yup.object().shape({

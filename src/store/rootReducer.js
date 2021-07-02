@@ -3,6 +3,8 @@ import candidateReducer from "./reducers/candidateReducer";
 import employeeReducer from "./reducers/employeeReducer";
 import employerReducer from "./reducers/employerReducer";
 import favoritesReducer from "./reducers/favoritesReducer";
+import filterReducer from "./reducers/filterReducer";
+import jobAdvertisementReducer from "./reducers/jobAdvertisementReducer";
 import resumeReducer from "./reducers/resumeReducer";
 
 const rootReducer = combineReducers({
@@ -10,7 +12,9 @@ const rootReducer = combineReducers({
    candidates:candidateReducer,
    employees:employeeReducer,
    resume:resumeReducer,
-   favorites:favoritesReducer
+   favorites:favoritesReducer,
+   jobAdvertisements:jobAdvertisementReducer,
+   filters:filterReducer
 })
 
 export default rootReducer;
