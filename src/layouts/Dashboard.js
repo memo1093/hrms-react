@@ -11,7 +11,7 @@ import { Footer } from "./Footer";
 import { Jumbotron } from "./Jumbotron";
 import { Navbar } from "./Navbar";
 import 'react-toastify/dist/ReactToastify.css';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { AddJobAdvertisement } from "../pages/Job/AddJobAdvertisement";
 import { EmployeeList } from "../pages/User/EmployeeList";
 
@@ -20,6 +20,7 @@ import { ResumeDetails } from "../pages/Resume/ResumeDetails";
 import { FavoriteAdvertisementList } from "../pages/Job/FavoriteAdvertisementList";
 import { useDispatch } from "react-redux";
 import { clearFilter } from "../store/actions/filterActions";
+import { AddResume } from "../pages/Resume/AddResume";
 
 
 export const Dashboard = () => {
@@ -42,6 +43,7 @@ export const Dashboard = () => {
       <Route exact path="/resumes/:id" component={Resumes} />
       <Route exact path="/resume/:id" component={ResumeDetails} />
       <Route exact path="/favorites/:id" component={FavoriteAdvertisementList} />
+      <Route exact path="/addResume/:id" component={AddResume} />
       <Route exact path="/" component={HomePage} />
 
       

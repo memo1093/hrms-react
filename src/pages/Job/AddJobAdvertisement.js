@@ -279,6 +279,7 @@ export const AddJobAdvertisement = () => {
                 content="Kaydet"
                 type="submit"
               />
+              
             </Grid.Row>
           </Grid>
         </Form.Field>

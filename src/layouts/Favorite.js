@@ -36,7 +36,7 @@ export const Favorite = ({
   
   return (
     <Image floated={floated} onClick={(e) =>{ handleFavorite(e)}}>
-      <Rating size={size} icon="star" rating={activated ? 1 : 0} clearable />
+      <Rating size={size} icon="heart" rating={activated ? 1 : 0} clearable />
     </Image>
   );
 };

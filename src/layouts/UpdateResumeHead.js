@@ -2,15 +2,16 @@ import { useFormik } from "formik";
 import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { Button, Form, Grid, Icon, Image } from "semantic-ui-react";
+import { Button, Form, Grid, Icon, Image, Loader, Reveal } from "semantic-ui-react";
 import * as yup from "yup";
-import ResumeService from "../../services/ResumeService";
+import ResumeService from "../services/ResumeService";
+import { addResumeImage, updateResumeHead } from "../store/actions/resumeActions";
 
-export const UpdateResumeHead = ({ setUpdateable, resume }) => {
+export const UpdateResumeHead = ({ setUpdateable, resume,progress,setProgress}) => {
   const imageRef = useRef();
-  const resumeService = new ResumeService();
-  const [selectedImage, setSelectedImage] = useState({});
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -22,13 +23,9 @@ export const UpdateResumeHead = ({ setUpdateable, resume }) => {
       profilePicture: resume.resume.profilePicture,
     },
     onSubmit: (values) => {
-      resumeService
-        .addOrUpdateResumeHead(values)
-        .then((result) => {
-          toast.success("Güncelleme işlemi başarılı");
-          setUpdateable(false);
-        })
-        .catch((error) => toast.error("Beklenmedik bir hata oluştu"));
+      dispatch(updateResumeHead(values));
+      toast.success("Güncelleme işlemi başarılı");
+      setUpdateable(false);
     },
     validationSchema: yup.object().shape({
       coverLetter: yup
@@ -42,27 +39,22 @@ export const UpdateResumeHead = ({ setUpdateable, resume }) => {
     }),
   });
 
-
-  const handleImageChange = (e) => {
-    setSelectedImage(e.target.files[0]);
-  };
-  const handleImageUpload = () => {
-    if (!selectedImage) {
-      toast.warning("Dosya Seçilmedi");
-    }
-    const formData = new FormData();
-    formData.append("file", selectedImage, selectedImage.name);
+  
+  const handleImageUpload = (e) => {
+    if (!e.target.files[0].name.endsWith(".jpg"||".png"||".jpeg")) {
+      toast.warning("Dosya formatı doğru değil");
+    }else if(e.target.files[0].size>20971520){ //byte
+      toast.warning("Dosya boyutu 20mb den küçük olmalıdır");
+    }else{
+      const formData = new FormData();
+    formData.append("file", e.target.files[0]);
     formData.append("resumeId", formik.values.id);
-    resumeService
-      .addOrUpdateImage(formData)
-      .then((response) => {
-        
-        toast.success("Profil fotoğrafı güncelleme işlemi başarılı");
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error("Beklenmedik bir hata oluştu");
-      });
+    dispatch(addResumeImage(formData))
+    toast.success("Profil fotoğrafı güncelleme işlemi başarılı")
+
+    }
+
+    
   };
 
   return !resume.loading ? (
@@ -73,22 +65,35 @@ export const UpdateResumeHead = ({ setUpdateable, resume }) => {
 
           <Form onSubmit={formik.handleSubmit}>
             <Form.Field>
-              <Image
-                src={formik.values.profilePicture}
-                circular
-                size="tiny"
-                onClick={() => imageRef.current.click()}
-              />
-              <Icon
-                name="save"
-                size="large"
-                style={{ marginLeft: "2rem" }}
-                onClick={handleImageUpload}
-              />
+              <Reveal animated="fade" >
+                <Reveal.Content visible>
+                  <Image
+                    src={formik.values.profilePicture}
+                    circular
+                    size="small"
+                    onClick={() => imageRef.current.click()}
+                  />
+                </Reveal.Content>
+                <Reveal.Content hidden>
+                  <Image
+                    style={{ opacity: "0.5" }}
+                    src={formik.values.profilePicture}
+                    circular
+                    size="small"
+                    onClick={() => imageRef.current.click()}
+                    
+                  />
+                  <Icon name="plus" color="grey" style={{position:"absolute",marginTop:"-5rem",marginLeft:"5rem"}}/>
+                  
+                </Reveal.Content>
+              </Reveal>
+
+              
+
               <input
                 ref={imageRef}
                 type="file"
-                onChange={handleImageChange}
+                onChange={handleImageUpload}
                 style={{ display: "none" }}
               />
             </Form.Field>
@@ -117,6 +122,13 @@ export const UpdateResumeHead = ({ setUpdateable, resume }) => {
               <Grid.Row>
                 <Grid.Column textAlign="right">
                   <Button icon="save" type="submit" color="violet"></Button>
+                  {!progress&&(<Button
+                    icon="times"
+                    color="red"
+                    onClick={() => setUpdateable(false)}
+                  ></Button>)
+                  }
+                  
                 </Grid.Column>
               </Grid.Row>
             </Grid>

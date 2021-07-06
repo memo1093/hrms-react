@@ -4,7 +4,6 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { Button, Form, Grid, Input } from "semantic-ui-react";
 import CityService from "../services/CityService";
 import JobPositionService from "../services/JobPositionService";
@@ -21,6 +20,7 @@ export const Filter = () => {
   const [searchCity, setsearchCity] = useState("");
 
   const filters = useSelector((state) => state.filters.filters);
+
   const jobTimeOptions = [];
   const jobTypeOptions = [];
   const cityOptions = [];

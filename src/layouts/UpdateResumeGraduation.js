@@ -3,21 +3,17 @@ import React from "react";
 import { toast } from "react-toastify";
 import { Button, Form, Grid, Message } from "semantic-ui-react";
 import * as yup from "yup";
-import ResumeService from "../../services/ResumeService";
 import tr from "date-fns/locale/tr";
 import DatePicker from "react-datepicker";
 import moment from "moment";
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { updateGraduation } from "../../store/actions/resumeActions";
 import { useDispatch } from "react-redux";
+import { updateGraduation } from "../store/actions/resumeActions";
 
 export const UpdateResumeGraduation = ({
   setUpdateable,
   graduation,
-  resumeId,
+  resumeId
 }) => {
-  const resumeService = new ResumeService();
   const dispatch = useDispatch()
 
   const formik = useFormik({
@@ -28,7 +24,7 @@ export const UpdateResumeGraduation = ({
       schoolName: graduation.schoolName,
       schoolDegree: graduation.schoolDegree,
       schoolDepartment: graduation.schoolDepartment,
-      stillStudying: false,
+      stillStudying: graduation.stillStudying,
       startDate: graduation.startDate,
       endDate: graduation.endDate,
     },
@@ -53,7 +49,7 @@ export const UpdateResumeGraduation = ({
         .min(2, "Bölüm en az iki haneli olmalıdır"),
       stillStudying: yup.boolean().required("Öğrenme durumu seçilmelidir"),
       startDate: yup.date().required("Tarih girilmelidir"),
-      endDate: yup.date().max(new Date()),
+      endDate: yup.date().nullable().max(new Date(),"Son tarih bugünün tarihinden fazla olamaz").default(null),
     }),
   });
   const parsedStartDate = Date.parse(
@@ -103,7 +99,7 @@ export const UpdateResumeGraduation = ({
               />
             </Form.Field>
             <Form.Field>
-              <label>Çalışma tipi</label>
+              <label>Mezuniyet durumu</label>
 
               <Form.Radio
                 name="stillStudying"
@@ -179,11 +175,14 @@ export const UpdateResumeGraduation = ({
                 )}
               </Form.Field>
             )}
+            
             <Form.Field>
               <Grid>
                 <Grid.Row>
                   <Grid.Column textAlign="right">
                     <Button icon="save" type="submit" color="violet"></Button>
+                    <Button icon="times" color="red" onClick={()=>setUpdateable(false)}></Button>
+
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

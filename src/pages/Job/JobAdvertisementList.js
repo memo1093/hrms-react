@@ -38,7 +38,7 @@ export const JobAdvertisement = () => {
       <Grid.Row stretched>
         <Grid.Column width={4} only="computer tablet">
           <Segment>
-            <Filter pageNo={page} pageSize={pageSize} setPage={setPage} />
+            <Filter/>
             
           </Segment>
         </Grid.Column>
