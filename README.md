@@ -9,4 +9,4 @@ Java, Jpa ,React, Redux ve Semantic UI kullanılarak yazılmış insan kaynaklar
 # Site Önizlemeleri
 ----------------------------------------------------------------
 ## Ana Sayfa
-![Alt text](https://imgur.com/mMNcJ8n)
+![Alt text](https://imgur.com/mMNcJ8n.jpg)
