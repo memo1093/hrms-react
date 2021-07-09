@@ -16,3 +16,8 @@ Java, Jpa ,React, Redux ve Semantic UI kullanılarak yazılmış insan kaynaklar
 
 ## İş arayanlar listesi
 ![Alt text](https://imgur.com/hf3qjim.jpg)
+
+## İş ilanları listesi
+![Alt text](https://imgur.com/YF0PD3X.jpg)
+
+## İş ilanları filtreleme
