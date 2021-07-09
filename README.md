@@ -32,4 +32,11 @@ Java, Jpa ,React, Redux ve Semantic UI kullanılarak yazılmış insan kaynaklar
 ## Özgeçmiş ekleme
 ![Alt text](https://imgur.com/BPfQ295.gif)
 
+## Özgeçmiş güncelleme
+![Alt text](https://imgur.com/LcXNiA7.gif)
+
+
+
+
+
 
