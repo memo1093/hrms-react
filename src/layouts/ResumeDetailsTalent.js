@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import {
   Grid,
   Card,
@@ -16,7 +15,6 @@ export const ResumeDetailsTalent = ({ talent, resumeId }) => {
   const dispatch = useDispatch();
   const handleRemoveTalent = () => {
     dispatch(deleteTalent(talent.id))
-    toast.warn("Yetenek bilgisi kaldırıldı");
   };
   return updateable ? (
     <UpdateResumeTalent

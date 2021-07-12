@@ -9,9 +9,10 @@ import JobPositionService from "../../services/JobPositionService";
 import CityService from "../../services/CityService";
 import JobAdvertisementService from "../../services/JobAdvertisementService";
 import { useFormik } from "formik";
-import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { addJobAdvertisement } from "../../store/actions/jobAdvertisementActions";
 
 export const AddJobAdvertisement = () => {
   const [jobPositions, setjobPositions] = useState([]);
@@ -21,6 +22,7 @@ export const AddJobAdvertisement = () => {
   const [lastApplicationDate, setlastApplicationDate] = useState(new Date());
 
   const history = useHistory();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     let jobPositionService = new JobPositionService();
@@ -80,14 +82,8 @@ export const AddJobAdvertisement = () => {
       lastApplicationDate: "",
     },
     onSubmit: (values) => {
-      let jobAdvertisementService = new JobAdvertisementService();
-      jobAdvertisementService
-        .add(values)
-        .then((result) => {
-          toast.success(`İş ilanı başarıyla eklendi`);
-          history.push("/jobAdvertisements");
-        })
-        .catch((error) => console.log(error.message));
+      dispatch(addJobAdvertisement(values))
+      history.push("/jobAdvertisements")
     },
     validationSchema: yup.object().shape({
       jobPositionId: yup.number().required("Pozisyon boş bırakılamaz"),

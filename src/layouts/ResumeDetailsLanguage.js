@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { Grid, Icon, Image,Card, Rating } from 'semantic-ui-react';
 import { deleteLanguage } from '../store/actions/resumeActions';
 import { UpdateResumeLanguage } from './UpdateResumeLanguage';
@@ -10,7 +9,6 @@ export const ResumeDetailsLanguage = ({language,resumeId}) => {
     const dispatch = useDispatch();
     const handleRemoveLanguage = () => {
         dispatch(deleteLanguage(language.id))
-        toast.warn("Dil bilgisi kaldırıldı");
       };
     return updateable?(
         <UpdateResumeLanguage

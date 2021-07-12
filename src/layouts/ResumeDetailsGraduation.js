@@ -1,7 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import {
   Grid,
   Card,
@@ -21,7 +20,6 @@ export const ResumeDetailsGraduation = ({ graduation, resumeId }) => {
   const handleRemoveGraduation=()=>{
     setOpen(false)
     dispatch(deleteGraduation(graduation.id))
-    toast.warn("Mezuniyet bilgisi kaldırıldı")
   }
   return updateable ? (
     <UpdateResumeGraduation

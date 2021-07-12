@@ -21,12 +21,13 @@ import { FavoriteAdvertisementList } from "../pages/Job/FavoriteAdvertisementLis
 import { useDispatch } from "react-redux";
 import { clearFilter } from "../store/actions/filterActions";
 import { AddResume } from "../pages/Resume/AddResume";
+import { RegisterUser } from "../pages/User/RegisterUser";
+import { UserList } from "../pages/User/UserList";
 
 
 export const Dashboard = () => {
   const location = useLocation()
   const dispatch = useDispatch()
-  console.log(location.pathname);
   !location.pathname.startsWith("/jobAdvertisements")&&dispatch(clearFilter())
   return (
     <div>
@@ -44,6 +45,8 @@ export const Dashboard = () => {
       <Route exact path="/resume/:id" component={ResumeDetails} />
       <Route exact path="/favorites/:id" component={FavoriteAdvertisementList} />
       <Route exact path="/addResume/:id" component={AddResume} />
+      <Route exact path="/user/new" component={RegisterUser} />
+      <Route exact path="/users" component={UserList} />
       <Route exact path="/" component={HomePage} />
 
       

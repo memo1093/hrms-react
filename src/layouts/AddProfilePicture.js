@@ -17,7 +17,6 @@ export const AddProfilePicture = ({resumeId,progress,setProgress}) => {
         formData.append("file", e.target.files[0]);
         formData.append("resumeId", resumeId);
         dispatch(addResumeImage(formData))
-        toast.success("Profil fotoğrafı güncelleme işlemi başarılı")
     
         }
     }

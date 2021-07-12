@@ -2,7 +2,6 @@ import moment from "moment";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import { Button, Card, Grid, Image } from "semantic-ui-react";
 import {
   deleteResumeCompletely,
@@ -18,20 +17,24 @@ export const Resumes = () => {
   }, [dispatch, id]);
   const handleRemoveResume = (resumeId, title) => {
     dispatch(deleteResumeCompletely(resumeId));
-    toast.warn(`${title} adlı özgeçmiş silindi`);
   };
   return (
     <div>
       <Grid padded>
         <Grid.Row>
           <Grid.Column textAlign="center">
-      <Button labelPosition="left" color="violet" content="Özgeçmiş ekle" as={Link} to={`/addResume/${id}`} icon="plus"  />
-
+            <Button
+              labelPosition="left"
+              color="violet"
+              content="Özgeçmiş ekle"
+              as={Link}
+              to={`/addResume/${id}`}
+              icon="plus"
+            />
           </Grid.Column>
         </Grid.Row>
       </Grid>
       <Grid centered padded>
-        
         <Card.Group itemsPerRow={2} fluid>
           {resumes.map((resume) => (
             <Card fluid key={resume.id} color="violet">
@@ -72,7 +75,6 @@ export const Resumes = () => {
           ))}
         </Card.Group>
       </Grid>
-      
     </div>
   );
 };

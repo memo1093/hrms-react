@@ -1,21 +1,20 @@
-import { useFormik } from 'formik';
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { toast } from 'react-toastify';
-import { addWebAdresses } from '../store/actions/resumeActions';
-import * as yup from 'yup'
-import { Button, Form, Grid } from 'semantic-ui-react';
+import { useFormik } from "formik";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { addWebAdresses } from "../store/actions/resumeActions";
+import * as yup from "yup";
+import { Button, Form, Grid } from "semantic-ui-react";
 
 export const AddResumeWebAddress = ({
-    setAdded,
-    resumeId,
-    progress,
-    setProgress
-  }) => {
-  const dispatch = useDispatch()
+  setAdded,
+  resumeId,
+  progress,
+  setProgress,
+}) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
-      id:"" ,
+      id: "",
       linkedInAddress: "",
       githubAddress: "",
       twitterAddress: "",
@@ -25,37 +24,56 @@ export const AddResumeWebAddress = ({
       resumeId: resumeId,
     },
     onSubmit: (values) => {
-        dispatch(addWebAdresses(values))
-        toast.success("Web adresleri eklendi")
-        setAdded(false)
+      dispatch(addWebAdresses(values));
+      setAdded(false);
     },
     validationSchema: yup.object().shape({
-        linkedInAddress: yup
+      linkedInAddress: yup
         .string()
-        .min(2, "Yetenek adı en az iki haneli olmalıdır").matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)","Lütfen geçerli bir adres girin"),
-        githubAddress: yup
+        .min(2, "Yetenek adı en az iki haneli olmalıdır")
+        .matches(
+          "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+          "Lütfen geçerli bir adres girin"
+        ),
+      githubAddress: yup
         .string()
-        .min(2, "Yetenek adı en az iki haneli olmalıdır").matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)","Lütfen geçerli bir adres girin"),
-        twitterAddress: yup
+        .min(2, "Yetenek adı en az iki haneli olmalıdır")
+        .matches(
+          "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+          "Lütfen geçerli bir adres girin"
+        ),
+      twitterAddress: yup
         .string()
-        .min(2, "Yetenek adı en az iki haneli olmalıdır").matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)","Lütfen geçerli bir adres girin"),
-        anotherAddress: yup
+        .min(2, "Yetenek adı en az iki haneli olmalıdır")
+        .matches(
+          "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+          "Lütfen geçerli bir adres girin"
+        ),
+      anotherAddress: yup
         .string()
-        .min(2, "Yetenek adı en az iki haneli olmalıdır").matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)","Lütfen geçerli bir adres girin"),
-        anotherAddress2: yup
+        .min(2, "Yetenek adı en az iki haneli olmalıdır")
+        .matches(
+          "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+          "Lütfen geçerli bir adres girin"
+        ),
+      anotherAddress2: yup
         .string()
-        .min(2, "Yetenek adı en az iki haneli olmalıdır").matches("[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)","Lütfen geçerli bir adres girin"),
+        .min(2, "Yetenek adı en az iki haneli olmalıdır")
+        .matches(
+          "[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)",
+          "Lütfen geçerli bir adres girin"
+        ),
     }),
   });
-  const handleNext =()=>{
+  const handleNext = () => {
     if (progress) {
-      setProgress(progress+1)
+      setProgress(progress + 1);
     }
-  }
-    return (
-        <Grid centered>
+  };
+  return (
+    <Grid centered>
       <Grid.Row centered columns={2}>
-          <p>Tüm web sitesi alanlarının doldurulması şart değildir</p>
+        <p>Tüm web sitesi alanlarının doldurulması şart değildir</p>
         <Grid.Column>
           <Form onSubmit={formik.handleSubmit}>
             <Form.Field required>
@@ -65,7 +83,10 @@ export const AddResumeWebAddress = ({
                 name="linkedInAddress"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.linkedInAddress && formik.errors.linkedInAddress}
+                error={
+                  formik.touched.linkedInAddress &&
+                  formik.errors.linkedInAddress
+                }
               />
             </Form.Field>
             <Form.Field required>
@@ -75,7 +96,9 @@ export const AddResumeWebAddress = ({
                 name="githubAddress"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.githubAddress && formik.errors.githubAddress}
+                error={
+                  formik.touched.githubAddress && formik.errors.githubAddress
+                }
               />
             </Form.Field>
             <Form.Field required>
@@ -85,7 +108,9 @@ export const AddResumeWebAddress = ({
                 name="twitterAddress"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.twitterAddress && formik.errors.twitterAddress}
+                error={
+                  formik.touched.twitterAddress && formik.errors.twitterAddress
+                }
               />
             </Form.Field>
             <Form.Field required>
@@ -95,7 +120,9 @@ export const AddResumeWebAddress = ({
                 name="anotherAddress"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.anotherAddress && formik.errors.anotherAddress}
+                error={
+                  formik.touched.anotherAddress && formik.errors.anotherAddress
+                }
               />
             </Form.Field>
             <Form.Field required>
@@ -105,17 +132,29 @@ export const AddResumeWebAddress = ({
                 name="anotherAddress2"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                error={formik.touched.anotherAddress2 && formik.errors.anotherAddress2}
+                error={
+                  formik.touched.anotherAddress2 &&
+                  formik.errors.anotherAddress2
+                }
               />
             </Form.Field>
-           
+
             <Form.Field>
               <Grid>
                 <Grid.Row>
                   <Grid.Column textAlign="right">
-                    <Button icon={progress?"plus":"save"} type="submit" color="violet"></Button>
-                    {!progress&&<Button icon="times" color="red" onClick={()=>setAdded(false)}></Button>}
-
+                    <Button
+                      icon={progress ? "plus" : "save"}
+                      type="submit"
+                      color="violet"
+                    ></Button>
+                    {!progress && (
+                      <Button
+                        icon="times"
+                        color="red"
+                        onClick={() => setAdded(false)}
+                      ></Button>
+                    )}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -123,8 +162,16 @@ export const AddResumeWebAddress = ({
           </Form>
         </Grid.Column>
       </Grid.Row>
-      {progress&&<Grid.Row><Grid.Column textAlign="center"> <Button positive onClick={()=>handleNext()}>İleri</Button></Grid.Column></Grid.Row>}
-      
+      {progress && (
+        <Grid.Row>
+          <Grid.Column textAlign="center">
+            {" "}
+            <Button positive onClick={() => handleNext()}>
+              İleri
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      )}
     </Grid>
-    )
-}
+  );
+};

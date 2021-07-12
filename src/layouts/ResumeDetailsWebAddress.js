@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { Grid, Icon, Image,Card } from 'semantic-ui-react';
 import { deleteWebAdresses } from '../store/actions/resumeActions';
 import { UpdateResumeWebAddress } from './UpdateResumeWebAddress';
@@ -11,7 +10,6 @@ export const ResumeDetailsWebAddress = ({webAddress,resumeId}) => {
     const [updateable, setUpdateable] = useState(false);
     const handleRemoveWebAddress = () => {
         dispatch(deleteWebAdresses(webAddress.id))
-        toast.warn("İnternet siteleri kaldırıldı");
       };
     return updateable?(
         <UpdateResumeWebAddress

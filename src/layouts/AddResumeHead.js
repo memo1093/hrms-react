@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { addResumeHead } from '../store/actions/resumeActions';
 import * as yup from 'yup'
 import { Button, Form, Grid } from 'semantic-ui-react';
@@ -17,7 +16,6 @@ export const AddResumeHead = ({setAdded,candidateId,setProgress,progress}) => {
     },
     onSubmit: (values) => {
       dispatch(addResumeHead(values));
-      toast.success("Ekleme işlemi başarılı");
      
       setAdded&&setAdded(false);
       progress&&setProgress(progress+1)

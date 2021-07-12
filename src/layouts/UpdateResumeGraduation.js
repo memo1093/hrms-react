@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import React from "react";
-import { toast } from "react-toastify";
 import { Button, Form, Grid, Message } from "semantic-ui-react";
 import * as yup from "yup";
 import tr from "date-fns/locale/tr";
@@ -30,7 +29,6 @@ export const UpdateResumeGraduation = ({
     },
     onSubmit: (values) => {
         dispatch(updateGraduation(values))
-        toast.success("Mezuniyet bilgisi güncellendi")
         setUpdateable(false)
     },
     validationSchema: yup.object().shape({

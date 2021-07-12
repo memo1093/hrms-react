@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import React from 'react'
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { Button, Form, Grid, Message } from 'semantic-ui-react';
 import { addGraduation } from '../store/actions/resumeActions';
 import tr from "date-fns/locale/tr";
@@ -25,7 +24,6 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
     },
     onSubmit: (values) => {
         dispatch(addGraduation(values))
-        toast.success("Mezuniyet bilgisi eklendi")
         setAdded(false)
         
     },

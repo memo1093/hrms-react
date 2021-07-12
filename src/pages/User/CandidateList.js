@@ -19,7 +19,7 @@ export const CandidateList = () => {
   return (
     <Grid>
         {candidates.loading ? (
-          <Image src="./img/loading.gif" />
+          <Image centered src="./img/loading.gif" />
         ) : (
       <Grid.Row centered color="violet">
           <Table stackable selectable padded inverted color="violet">

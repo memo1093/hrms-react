@@ -1,12 +1,10 @@
 import { useFormik } from "formik";
 import React from "react";
-import { useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { Button, Form, Grid, Icon, Image, Loader, Reveal } from "semantic-ui-react";
+import { Button, Form, Grid, Icon, Image,Reveal } from "semantic-ui-react";
 import * as yup from "yup";
-import ResumeService from "../services/ResumeService";
 import { addResumeImage, updateResumeHead } from "../store/actions/resumeActions";
 
 export const UpdateResumeHead = ({ setUpdateable, resume,progress,setProgress}) => {
@@ -24,7 +22,6 @@ export const UpdateResumeHead = ({ setUpdateable, resume,progress,setProgress}) 
     },
     onSubmit: (values) => {
       dispatch(updateResumeHead(values));
-      toast.success("Güncelleme işlemi başarılı");
       setUpdateable(false);
     },
     validationSchema: yup.object().shape({
@@ -50,7 +47,6 @@ export const UpdateResumeHead = ({ setUpdateable, resume,progress,setProgress}) 
     formData.append("file", e.target.files[0]);
     formData.append("resumeId", formik.values.id);
     dispatch(addResumeImage(formData))
-    toast.success("Profil fotoğrafı güncelleme işlemi başarılı")
 
     }
 

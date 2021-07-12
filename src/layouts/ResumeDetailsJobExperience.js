@@ -1,8 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 import {
   Grid,
   Card,
@@ -24,7 +22,6 @@ export const ResumeDetailsJobExperience = ({ jobExperience, resumeId }) => {
 
     dispatch(deleteJobExperience(jobExperience.id))
     setOpen(false)
-    toast.warn("Yetenek bilgisi kaldırıldı");
   };
   return updateable ? (
     <UpdateResumeJobExperience

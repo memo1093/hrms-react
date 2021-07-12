@@ -49,11 +49,16 @@ export const Navbar = ({ location }) => {
                   Özgeçmişler
                 </Dropdown.Item>
                 {/* //! Session tamamlandığında candidateId=30 */}
-                <Dropdown.Item>İş Alarmları</Dropdown.Item>
+                <Dropdown.Item as={NavLink} exact to="/profile/21">Bilgiler</Dropdown.Item>
+                {/* //! Session tamamlandığında employeeId=21 */}
                 <Dropdown.Item as={NavLink} exact to="/favorites/26">
                   Favoriler
                 </Dropdown.Item>
                 {/* //! Session tamamlandığında candidateId=26 */}
+                <Dropdown.Item as={NavLink} exact to="/users">
+                  Tüm kullanıcılar
+                </Dropdown.Item>
+                {/* //! Session tamamlandığında employee */}
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Menu>
@@ -99,7 +104,7 @@ export const Navbar = ({ location }) => {
                     <Link to="#">Şifremi unuttum</Link>
                   </Dropdown.Header>
                   <Dropdown.Header>
-                    <Link to="/addUser">Kaydol</Link>
+                    <Link to="/user/new">Kaydol</Link>
                   </Dropdown.Header>
                 </Dropdown.Menu>
               </Dropdown>

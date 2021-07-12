@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import React from "react";
-import { toast } from "react-toastify";
 import { Button, Form, Grid } from "semantic-ui-react";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -22,7 +21,6 @@ export const UpdateResumeTalent = ({
     },
     onSubmit: (values) => {
         dispatch(updateTalent(values))
-        toast.success("Yetenek bilgisi güncellendi")
         setUpdateable(false)
     },
     validationSchema: yup.object().shape({

@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import moment from "moment";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import { Button, Form, Grid, Message } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import * as yup from "yup";
@@ -22,7 +21,6 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
     },
     onSubmit: (values) => {
       dispatch(addJobExperience(values));
-      toast.success("İş tecrübesi eklendi");
       setAdded(false);
     },
     validationSchema: yup.object().shape({

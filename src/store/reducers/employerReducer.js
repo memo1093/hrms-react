@@ -1,4 +1,4 @@
-import { CHANGE_EMPLOYER_ACTIVATION_FAILURE, CHANGE_EMPLOYER_ACTIVATION_SUCCESS, GET_ALL_EMPLOYER_FAILURE, GET_ALL_EMPLOYER_SUCCESS} from "../actions/employerActions";
+import { ADD_EMPLOYER_FAILURE, ADD_EMPLOYER_SUCCESS, CHANGE_EMPLOYER_ACTIVATION_FAILURE, CHANGE_EMPLOYER_ACTIVATION_SUCCESS, GET_ALL_EMPLOYER_FAILURE, GET_ALL_EMPLOYER_SUCCESS} from "../actions/employerActions";
 import { employers, loading, message } from "../initialValues/employers";
 
 
@@ -37,6 +37,16 @@ export default function employerReducer(state=initialState,{type,payload}){
                 ...state,
                 message:payload
             }
+            case ADD_EMPLOYER_SUCCESS:
+                return{
+                    ...state
+                   
+                }
+            case ADD_EMPLOYER_FAILURE:
+                return{
+                    ...state,
+                    message:payload
+                }
         default:
             return state;
     }

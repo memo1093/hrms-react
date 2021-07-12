@@ -6,7 +6,6 @@ import {
   changeActivation,
   getAllEmployers,
 } from "../../store/actions/employerActions";
-import { toast } from "react-toastify";
 import { Paginate } from "../../layouts/Paginate";
 
 export const EmployersList = () => {
@@ -24,14 +23,11 @@ export const EmployersList = () => {
   
   const handleActivated = (employer) => {
     dispatch(changeActivation(employer));
-    toast.info(
-      `${employer.companyName} şirketinin aktivasyon durumu başarıyla güncellendi!`
-    );
   };
 
   return (
     <Grid>
-        {employers.loading?(<Image src="./img/loading.gif"/>):
+        {employers.loading?(<Image centered src="./img/loading.gif"/>):
       <Grid.Row centered color="violet">
         <Table stackable selectable padded inverted color="violet">
           <Table.Header>
