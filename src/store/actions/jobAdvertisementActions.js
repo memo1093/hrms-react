@@ -5,6 +5,8 @@ export const GET_ALL_JOB_ADVERTISEMENTS_SORTED_SUCCESS='GET_ALL_JOB_ADVERTISEMEN
 export const GET_ALL_JOB_ADVERTISEMENTS_SORTED_FAILURE='GET_ALL_JOB_ADVERTISEMENTS_SORTED_FAILURE'
 export const GET_BY_FILTER_WITH_PAGES_SUCCESS='GET_BY_FILTER_WITH_PAGES_SUCCESS'
 export const GET_BY_FILTER_WITH_PAGES_FAILURE='GET_BY_FILTER_WITH_PAGES_FAILURE'
+export const GET_BY_ID_JOB_ADVERTISEMENT_SUCCESS='GET_BY_ID_JOB_ADVERTISEMENT_SUCCESS'
+export const GET_BY_ID_JOB_ADVERTISEMENT_FAILURE='GET_BY_ID_JOB_ADVERTISEMENT_FAILURE'
 export const ADD_JOB_ADVERTISEMENT_SUCCESS='ADD_JOB_ADVERTISEMENT_SUCCESS'
 export const ADD_JOB_ADVERTISEMENT_FAILURE='ADD_JOB_ADVERTISEMENT_FAILURE'
 
@@ -38,6 +40,22 @@ export const getByFilterWithPages = (values,pageNo,pageSize) => async (dispatch)
     .catch((error) =>
       dispatch({
         type: GET_BY_FILTER_WITH_PAGES_FAILURE,
+        payload: error.message,
+      })
+    );
+};
+export const getJobAdvertisementById = (jobAdvertisementId) => async (dispatch) => {
+  await jobAdvertisementService
+    .getById(jobAdvertisementId)
+    .then((result) =>
+      dispatch({
+        type: GET_BY_ID_JOB_ADVERTISEMENT_SUCCESS,
+        payload: result.data.data,
+      })
+    )
+    .catch((error) =>
+      dispatch({
+        type: GET_BY_ID_JOB_ADVERTISEMENT_FAILURE,
         payload: error.message,
       })
     );

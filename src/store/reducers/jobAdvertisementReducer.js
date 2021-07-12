@@ -5,6 +5,8 @@ import {
   GET_ALL_JOB_ADVERTISEMENTS_SORTED_SUCCESS,
   GET_BY_FILTER_WITH_PAGES_FAILURE,
   GET_BY_FILTER_WITH_PAGES_SUCCESS,
+  GET_BY_ID_JOB_ADVERTISEMENT_FAILURE,
+  GET_BY_ID_JOB_ADVERTISEMENT_SUCCESS,
 } from "../actions/jobAdvertisementActions";
 import {
   jobAdvertisements,
@@ -42,6 +44,18 @@ export default function jobAdvertisementReducer(
         loading: false,
       };
     case GET_BY_FILTER_WITH_PAGES_FAILURE:
+      return {
+        ...state,
+        message: payload,
+        loading: false,
+      };
+      case GET_BY_ID_JOB_ADVERTISEMENT_SUCCESS:
+      return {
+        ...state,
+        jobAdvertisement: payload,
+        loading: false,
+      };
+    case GET_BY_ID_JOB_ADVERTISEMENT_FAILURE:
       return {
         ...state,
         message: payload,

@@ -1,61 +1,102 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
-import { Item, Button, Icon, Grid } from "semantic-ui-react";
+import { Item, Button, Icon, Grid, Card, Image } from "semantic-ui-react";
 import JobAdvertisementService from "../../services/JobAdvertisementService";
+import { getJobAdvertisementById } from "../../store/actions/jobAdvertisementActions";
+import { Favorite } from "../../layouts/Favorite";
 
 export const JobAdvertisementDetails = () => {
   let { id } = useParams();
-  const [jobAdvertisement, setJobAdvertisement] = useState({});
-  
+  const dispatch = useDispatch();
+  const jobAdvertisementLoading = useSelector(
+    (state) => state.jobAdvertisements.loading
+  );
+  const jobAdvertisement = useSelector(
+    (state) => state.jobAdvertisements.jobAdvertisement
+  );
+  const favorites = useSelector((state) => state.favorites);
   useEffect(() => {
-    let jobAdvertisementService = new JobAdvertisementService();
-    jobAdvertisementService
-      .getById(id)
-      .then((result) => setJobAdvertisement(result.data.data))
-      .catch((error) => console.log(error.message));
-  }, [id]);
+    dispatch(getJobAdvertisementById(id));
+  }, [id, dispatch]);
   const application = () => {
-    
     toast.info(
       `${jobAdvertisement.jobPosition?.position} pozisyonuna başvuru işlemi başarılı`
     );
   };
-  return (
-    <Grid padded columns={1}>
+  const isFavorite = (id) => {
+    return favorites.favorites?.find(
+      (favorite) => favorite.jobPositionAdvertisement.id === id
+    );
+  };
+  return jobAdvertisementLoading ? (
+    <Image centered src="/img/loading.gif" />
+  ) : (
+    <Grid padded centered columns={2}>
       <Grid.Row>
-        <Grid.Column>
-          <Item.Group relaxed>
-            <Item>
-              {jobAdvertisement.employer?.companyPicture ? (<Item.Image
-                  size="small"
-                  src={jobAdvertisement.employer?.companyPicture}
+        <Grid.Column textAlign="center">
+          <Card fluid centered>
+            <Card.Content>
+              <Card.Header>
+                {jobAdvertisement.employer?.companyPicture ? (
+                  <Image
+                    floated="left"
+                    avatar
+                    centered
+                    src={jobAdvertisement.employer?.companyPicture}
+                  />
+                ) : (
+                  <Image floated="left" centered>
+                    <Icon name="globe" />
+                  </Image>
+                )}
+                {jobAdvertisement.jobPosition?.position}
+
+                <Favorite
+                  floated="right"
+                  size="huge"
+                  candidateId={26}
+                  activated={isFavorite(jobAdvertisement.id)}
                 />
-                
-              ) : (
-                
-                <Icon size="huge" name="globe"/>
-              )}
-              <Item.Content verticalAlign="middle">
-                <Item.Header>
-                  {jobAdvertisement.jobPosition?.position}
-                </Item.Header>
-                <Item.Description>
-                  {jobAdvertisement.description}
-                </Item.Description>
-                <Item.Extra>
-                  <Button
-                    content="Başvur"
-                    labelPosition="right"
-                    icon="checkmark"
-                    color="violet"
-                    floated="right"
-                    onClick={() => application()}
-                 />
-                </Item.Extra>
-              </Item.Content>
-            </Item>
-          </Item.Group>
+                {/* //! Session tamamlandığında */}
+              </Card.Header>
+              <Card.Meta>
+                {jobAdvertisement.employer?.companyName}
+              </Card.Meta>
+            </Card.Content>
+            <Card.Content>
+              <Card.Description>
+                {jobAdvertisement.description}
+              </Card.Description>
+              
+             
+            </Card.Content>
+            <Card.Content textAlign="left">
+            
+              <Card.Description>
+                <strong>Yer :</strong>{jobAdvertisement.city?.city}
+              </Card.Description>
+              <Card.Description>
+                <strong>Açık pozisyon sayısı :</strong>{jobAdvertisement.activePositions}
+              </Card.Description>
+              <Card.Description>
+                <strong>Çalışma tipi :</strong>{jobAdvertisement.jobType?.type}
+              </Card.Description>
+              <Card.Description>
+                <strong>Çalışma zamanı :</strong>{jobAdvertisement.jobTime?.type}
+              </Card.Description>
+              {jobAdvertisement.minSalary && jobAdvertisement.maxSalary ? (
+                <Card.Description>
+                  <strong>Maaş aralığı :</strong>{jobAdvertisement.minSalary} TL - {jobAdvertisement.maxSalary} TL
+                </Card.Description>
+              ):("")}
+            </Card.Content>
+            <Card.Content>
+                <Button content="Başvur" color="violet" icon="check"/>
+            </Card.Content>
+          </Card>
+         
         </Grid.Column>
       </Grid.Row>
     </Grid>
