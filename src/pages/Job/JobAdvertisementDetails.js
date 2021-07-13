@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
-import { Item, Button, Icon, Grid, Card, Image } from "semantic-ui-react";
-import JobAdvertisementService from "../../services/JobAdvertisementService";
+import { Button, Icon, Grid, Card, Image } from "semantic-ui-react";
 import { getJobAdvertisementById } from "../../store/actions/jobAdvertisementActions";
 import { Favorite } from "../../layouts/Favorite";
+import { getFavoritesByCandidateId } from "../../store/actions/favoritesActions";
 
 export const JobAdvertisementDetails = () => {
   let { id } = useParams();
@@ -19,10 +19,12 @@ export const JobAdvertisementDetails = () => {
   const favorites = useSelector((state) => state.favorites);
   useEffect(() => {
     dispatch(getJobAdvertisementById(id));
+    dispatch(getFavoritesByCandidateId(26))
+    //!Session tamamlanınca
   }, [id, dispatch]);
   const application = () => {
     toast.info(
-      `${jobAdvertisement.jobPosition?.position} pozisyonuna başvuru işlemi başarılı`
+      `${jobAdvertisement.jobPosition?.position} pozisyonuna başvuru yapıldı`
     );
   };
   const isFavorite = (id) => {
@@ -93,7 +95,7 @@ export const JobAdvertisementDetails = () => {
               ):("")}
             </Card.Content>
             <Card.Content>
-                <Button content="Başvur" color="violet" icon="check"/>
+                <Button content="Başvur" color="violet" icon="check" onClick={()=>application()}/>
             </Card.Content>
           </Card>
          

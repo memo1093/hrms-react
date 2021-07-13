@@ -45,10 +45,18 @@ export default class ResumeService {
       webAdresses
     );
   }
-  addOrUpdateImage(formData) {
+  addOrUpdateImage(formData, setImageLoading) {
     return axios.post(
       `http://localhost:8080/api/resumes/addOrUpdateProfilePicture`,
-      formData
+      formData,
+      {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          let percent = Math.floor(loaded/total*100)
+          setImageLoading(percent)
+          
+        },
+      }
     );
   }
   //Resume delete methods

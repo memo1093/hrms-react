@@ -83,9 +83,10 @@ export const ResumeDetailsJobExperience = ({ jobExperience, resumeId }) => {
             <Card.Meta>
                 Başlangıç Tarihi - {moment(jobExperience.startDate).format("DD-MM-YYYY") }
             </Card.Meta>
-            <Card.Meta>
+            {jobExperience.endDate&&<Card.Meta>
                 Bitiş Tarihi - {moment(jobExperience.endDate).format("DD-MM-YYYY") }
-            </Card.Meta>
+            </Card.Meta>}
+            
             </Card.Content>
             
           </Card>

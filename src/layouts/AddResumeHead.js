@@ -56,6 +56,7 @@ export const AddResumeHead = ({setAdded,candidateId,setProgress,progress}) => {
               />
             </Form.Field>
             <Form.Field required>
+              
               <Form.TextArea
                 label="Özet bilgiler"
                 value={formik.values.coverLetter}

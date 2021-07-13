@@ -88,11 +88,11 @@ export const getResumesByCandidateId = (canidateId) => async (dispatch) => {
 };
 
 //Add Actions
-export const addResumeImage = (formData) => async (dispatch) => {
+export const addResumeImage = (formData,setImageLoading) => async (dispatch) => {
   await resumeService
-    .addOrUpdateImage(formData)
+    .addOrUpdateImage(formData,setImageLoading)
     .then((result) => {
-      toast.success("Profil fotoğrafı güncelleme işlemi başarılı");
+      toast.success("Profil fotoğrafı ekleme işlemi başarılı");
 
       dispatch({
         type: ADD_RESUME_IMAGE_SUCCESS,

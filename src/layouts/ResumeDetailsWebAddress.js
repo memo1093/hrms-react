@@ -11,6 +11,7 @@ export const ResumeDetailsWebAddress = ({webAddress,resumeId}) => {
     const handleRemoveWebAddress = () => {
         dispatch(deleteWebAdresses(webAddress.id))
       };
+      console.log(webAddress);
     return updateable?(
         <UpdateResumeWebAddress
       resumeId={resumeId}

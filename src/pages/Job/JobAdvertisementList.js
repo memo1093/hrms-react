@@ -52,6 +52,7 @@ export const JobAdvertisement = () => {
             color="violet"
             
             as={Link}
+            target="_blank"
             to={`/jobAdvertisements/${jobAdvertisement.id}`}
             
             >

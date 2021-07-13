@@ -51,12 +51,11 @@ export const UpdateResumeGraduation = ({
     }),
   });
   const parsedStartDate = Date.parse(
-    moment(formik.values.startDate).format("DD-MM-YYYY")
+    formik.values.startDate
   );
   const parsedEndDate = Date.parse(
-    moment(formik.values.endDate).format("DD-MM-YYYY")
+    formik.values.endDate
   );
-  
 
   return (
     <Grid centered>
@@ -64,6 +63,7 @@ export const UpdateResumeGraduation = ({
         <Grid.Column>
           <Form onSubmit={formik.handleSubmit}>
             <Form.Field>
+              
               <Form.Input
                 label="Okul adı"
                 value={formik.values.schoolName}
@@ -104,7 +104,10 @@ export const UpdateResumeGraduation = ({
                 label="Devam ediyor"
                 value={true}
                 checked={formik.values.stillStudying}
-                onChange={(e) => formik.setFieldValue("stillStudying", true)}
+                onChange={(e) => {
+                  formik.setFieldValue("stillStudying", true);
+                  formik.setFieldValue("endDate", null);
+                }}
               />
 
               {formik.touched.stillStudying && formik.errors.stillStudying && (
@@ -117,7 +120,8 @@ export const UpdateResumeGraduation = ({
                 label="Mezun"
                 value={false}
                 checked={!formik.values.stillStudying}
-                onChange={(e) => formik.setFieldValue("stillStudying", false)}
+                onChange={(e) =>{formik.setFieldValue("stillStudying", false);
+                formik.setFieldValue("endDate", new Date())}}
               />
 
               {formik.touched.stillStudying && formik.errors.stillStudying && (

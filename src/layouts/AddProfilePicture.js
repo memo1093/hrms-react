@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { useDispatch } from 'react-redux';
+import React, { useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button, Grid, Header, Icon, Image, Reveal } from 'semantic-ui-react';
 import { addResumeImage } from '../store/actions/resumeActions';
@@ -7,6 +7,8 @@ import { addResumeImage } from '../store/actions/resumeActions';
 export const AddProfilePicture = ({resumeId,progress,setProgress}) => {
     const dispatch = useDispatch()
     const imageRef = useRef();
+    const [imageLoading, setImageLoading] = useState(0)
+    const profilePicture = useSelector(state => state.resume.resume.profilePicture)
     const handleImageUpload = (e) => {
         if (!e.target.files[0].name.endsWith(".jpg"||".png"||".jpeg")) {
           toast.warning("Dosya formatı doğru değil");
@@ -16,7 +18,7 @@ export const AddProfilePicture = ({resumeId,progress,setProgress}) => {
           const formData = new FormData();
         formData.append("file", e.target.files[0]);
         formData.append("resumeId", resumeId);
-        dispatch(addResumeImage(formData))
+        dispatch(addResumeImage(formData,setImageLoading))
     
         }
     }
@@ -24,12 +26,12 @@ export const AddProfilePicture = ({resumeId,progress,setProgress}) => {
         <Grid centered>
             <Grid.Row>
 
-
+{console.log(imageLoading)}
             <Reveal animated="fade" >
                 <Reveal.Content visible>
                   <Image
                   
-                  src={"/img/white-image.png"}
+                  src={profilePicture?profilePicture:"/img/white-image.png"}
                   circular
                   size="small"
                   onClick={() => imageRef.current.click()}
@@ -38,7 +40,7 @@ export const AddProfilePicture = ({resumeId,progress,setProgress}) => {
                 <Reveal.Content hidden>
                   <Image
                     style={{ opacity: "0.5" }}
-                    src={"/img/white-image.png"}
+                    src={profilePicture?profilePicture:"/img/white-image.png"}
                     circular
                     size="small"
                     onClick={() => imageRef.current.click()}
@@ -49,6 +51,7 @@ export const AddProfilePicture = ({resumeId,progress,setProgress}) => {
               </Reveal>
               <input
                 ref={imageRef}
+                
                 type="file"
                 onChange={handleImageUpload}
                 style={{ display: "none" }}

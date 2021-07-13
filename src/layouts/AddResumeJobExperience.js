@@ -8,7 +8,12 @@ import * as yup from "yup";
 import tr from "date-fns/locale/tr";
 import { addJobExperience } from "../store/actions/resumeActions";
 
-export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress }) => {
+export const AddResumeJobExperience = ({
+  setAdded,
+  resumeId,
+  progress,
+  setProgress,
+}) => {
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -17,7 +22,7 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
       position: "",
       stillWorking: false,
       startDate: moment().add(-30, "days").endOf("Day").format("YYYY-MM-DD"),
-      endDate: moment().endOf("day").format("YYYY-MM-DD"),
+      endDate: null,
     },
     onSubmit: (values) => {
       dispatch(addJobExperience(values));
@@ -38,20 +43,20 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
       startDate: yup.date().required("Tarih girilmelidir"),
       endDate: yup
         .date()
-        .max(new Date(), "Son tarih bugünün tarihinden fazla olamaz"),
+        .max(
+          moment(new Date()).endOf("day"),
+          "Bitiş tarihi gelecek bir tarihten olamaz"
+        )
+        .nullable(),
     }),
   });
-  const parsedStartDate = Date.parse(
-    moment(formik.values.startDate).format("DD-MM-YYYY")
-  );
-  const parsedEndDate = Date.parse(
-    moment(formik.values.endDate).format("DD-MM-YYYY")
-  );
-  const handleNext =()=>{
+  const parsedStartDate = Date.parse(formik.values.startDate);
+  const parsedEndDate = Date.parse(formik.values.endDate);
+  const handleNext = () => {
     if (progress) {
-      setProgress(progress+1)
+      setProgress(progress + 1);
     }
-  }
+  };
   return (
     <Grid centered>
       <Grid.Row centered columns={2}>
@@ -85,7 +90,10 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
                 label="Devam ediyor"
                 value="true"
                 checked={formik.values.stillWorking}
-                onChange={(e) => formik.setFieldValue("stillWorking", true)}
+                onChange={(e) => {
+                  formik.setFieldValue("stillWorking", true);
+                  formik.setFieldValue("endDate", null);
+                }}
               />
 
               {formik.touched.stillWorking && formik.errors.stillWorking && (
@@ -98,7 +106,10 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
                 label="Ayrıldı"
                 value="false"
                 checked={!formik.values.stillWorking}
-                onChange={(e) => formik.setFieldValue("stillWorking", false)}
+                onChange={(e) => {
+                  formik.setFieldValue("stillWorking", false);
+                  formik.setFieldValue("endDate",new Date())
+                }}
               />
 
               {formik.touched.stillWorking && formik.errors.stillWorking && (
@@ -158,13 +169,18 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
               <Grid>
                 <Grid.Row>
                   <Grid.Column textAlign="right">
-                    <Button icon={progress?"plus":"save"} type="submit" color="violet"></Button>
-                    {!progress&&(<Button
-                      icon="times"
-                      color="red"
-                      onClick={() => setAdded(false)}
-                    ></Button>)}
-                    
+                    <Button
+                      icon={progress ? "plus" : "save"}
+                      type="submit"
+                      color="violet"
+                    ></Button>
+                    {!progress && (
+                      <Button
+                        icon="times"
+                        color="red"
+                        onClick={() => setAdded(false)}
+                      ></Button>
+                    )}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -172,7 +188,16 @@ export const AddResumeJobExperience = ({ setAdded, resumeId,progress,setProgress
           </Form>
         </Grid.Column>
       </Grid.Row>
-      {progress&&<Grid.Row><Grid.Column textAlign="center"> <Button positive onClick={()=>handleNext()}>İleri</Button></Grid.Column></Grid.Row>}
+      {progress && (
+        <Grid.Row>
+          <Grid.Column textAlign="center">
+            {" "}
+            <Button positive onClick={() => handleNext()}>
+              İleri
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      )}
     </Grid>
   );
 };

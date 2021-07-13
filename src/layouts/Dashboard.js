@@ -23,6 +23,7 @@ import { clearFilter } from "../store/actions/filterActions";
 import { AddResume } from "../pages/Resume/AddResume";
 import { RegisterUser } from "../pages/User/RegisterUser";
 import { UserList } from "../pages/User/UserList";
+import { test } from "../pages/test";
 
 
 export const Dashboard = () => {
@@ -47,6 +48,7 @@ export const Dashboard = () => {
       <Route exact path="/addResume/:id" component={AddResume} />
       <Route exact path="/user/new" component={RegisterUser} />
       <Route exact path="/users" component={UserList} />
+      <Route exact path="/test" component={test} />
       <Route exact path="/" component={HomePage} />
 
       

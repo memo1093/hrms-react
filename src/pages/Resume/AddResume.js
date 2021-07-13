@@ -87,13 +87,13 @@ export const AddResume = () => {
           </Grid.Row>)}
           {progress===7&&(
           <Grid.Row>
-              <Grid.Column textAlign="center">{resume.webAdresses&&resume.webAdresses.map(webAddress=><ResumeDetailsWebAddress webAddress={webAddress} resumeId={resume.id}/>)}
+              <Grid.Column textAlign="center">{resume.webAddresses&&resume.webAddresses.map(webAddress=><ResumeDetailsWebAddress webAddress={webAddress} resumeId={resume.id}/>)}
               <AddResumeWebAddress resumeId={resume.id} progress={progress} setProgress={setProgress}/>
               </Grid.Column>
           </Grid.Row>)}
           {progress===8&&(<Grid.Row>
               <Grid.Column textAlign="center">
-                  Özgeçmiş ekleme işlemi tamamlandı. Özgeçmişi düzenlemek yada görmek için <Link to={`/resumes/${id}`}>buraya</Link> tıklayınız.
+                  Özgeçmiş ekleme işlemi tamamlandı. Özgeçmişi düzenlemek yada görmek için <Link to={`/resume/${resume.id}`}>buraya</Link> tıklayınız.
               </Grid.Column>
           </Grid.Row>)}
       

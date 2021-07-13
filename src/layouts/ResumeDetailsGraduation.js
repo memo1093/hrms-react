@@ -82,7 +82,7 @@ export const ResumeDetailsGraduation = ({ graduation, resumeId }) => {
               <Card.Meta>
                 {" "}
                 Mezuniyet Tarihi -{" "}
-                {graduation.stillStudying
+                {graduation.endDate===null
                   ? "Devam ediyor"
                   : moment(graduation.endDate).format("DD-MM-YYYY")}
               </Card.Meta>

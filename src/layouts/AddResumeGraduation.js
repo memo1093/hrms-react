@@ -1,15 +1,20 @@
-import { useFormik } from 'formik';
-import React from 'react'
-import { useDispatch } from 'react-redux';
-import { Button, Form, Grid, Message } from 'semantic-ui-react';
-import { addGraduation } from '../store/actions/resumeActions';
+import { useFormik } from "formik";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Button, Form, Grid, Message } from "semantic-ui-react";
+import { addGraduation } from "../store/actions/resumeActions";
 import tr from "date-fns/locale/tr";
 import DatePicker from "react-datepicker";
-import * as yup from 'yup'
-import moment from 'moment';
+import * as yup from "yup";
+import moment from "moment";
 
-export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) => {
-    const dispatch = useDispatch()
+export const AddResumeGraduation = ({
+  setAdded,
+  resumeId,
+  progress,
+  setProgress,
+}) => {
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -19,13 +24,12 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
       schoolDegree: "",
       schoolDepartment: "",
       stillStudying: false,
-      startDate: "",
-      endDate: "",
+      startDate: moment().add(-30, "days").endOf("Day").format("YYYY-MM-DD"),
+      endDate: null,
     },
     onSubmit: (values) => {
-        dispatch(addGraduation(values))
-        setAdded(false)
-        
+      dispatch(addGraduation(values));
+      setAdded(false);
     },
     validationSchema: yup.object().shape({
       schoolName: yup
@@ -43,22 +47,22 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
         .min(2, "Bölüm en az iki haneli olmalıdır"),
       stillStudying: yup.boolean().required("Öğrenme durumu seçilmelidir"),
       startDate: yup.date().required("Tarih girilmelidir"),
-      endDate: yup.date().max(new Date(),"Bitiş tarihi gelecek bir tarihten olamaz"),
+      endDate: yup
+        .date()
+        .max(moment(new Date()).endOf('day'), "Bitiş tarihi gelecek bir tarihten olamaz")
+        .nullable(),
     }),
   });
-  const parsedStartDate = Date.parse(
-    moment(formik.values.startDate).format("DD-MM-YYYY")
-  );
-  const parsedEndDate = Date.parse(
-    moment(formik.values.endDate).format("DD-MM-YYYY")
-  );
-  const handleNext =()=>{
+  const parsedStartDate = Date.parse(formik.values.startDate);
+  const parsedEndDate =
+    !formik.values.endDate !== null && Date.parse(formik.values.endDate);
+  const handleNext = () => {
     if (progress) {
-      setProgress(progress+1)
+      setProgress(progress + 1);
     }
-  }
-    return (
-        <Grid centered>
+  };
+  return (
+    <Grid centered>
       <Grid.Row centered columns={2}>
         <Grid.Column>
           <Form onSubmit={formik.handleSubmit}>
@@ -103,7 +107,10 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
                 label="Devam ediyor"
                 value={true}
                 checked={formik.values.stillStudying}
-                onChange={(e) => formik.setFieldValue("stillStudying", true)}
+                onChange={(e) => {
+                  formik.setFieldValue("stillStudying", true);
+                  formik.setFieldValue("endDate", null);
+                }}
               />
 
               {formik.touched.stillStudying && formik.errors.stillStudying && (
@@ -116,7 +123,10 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
                 label="Mezun"
                 value={false}
                 checked={!formik.values.stillStudying}
-                onChange={(e) => formik.setFieldValue("stillStudying", false)}
+                onChange={(e) => {
+                  formik.setFieldValue("stillStudying", false);
+                  formik.setFieldValue("endDate", new Date());
+                }}
               />
 
               {formik.touched.stillStudying && formik.errors.stillStudying && (
@@ -176,8 +186,18 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
               <Grid>
                 <Grid.Row>
                   <Grid.Column textAlign="right">
-                    <Button icon={progress?"plus":"save"} type="submit" color="violet"></Button>
-                    {!progress&&<Button icon="times" color="red" onClick={()=>setAdded(false)}></Button>}
+                    <Button
+                      icon={progress ? "plus" : "save"}
+                      type="submit"
+                      color="violet"
+                    ></Button>
+                    {!progress && (
+                      <Button
+                        icon="times"
+                        color="red"
+                        onClick={() => setAdded(false)}
+                      ></Button>
+                    )}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -185,7 +205,16 @@ export const AddResumeGraduation = ({setAdded,resumeId,progress,setProgress}) =>
           </Form>
         </Grid.Column>
       </Grid.Row>
-                  {progress&&<Grid.Row><Grid.Column textAlign="center"> <Button positive onClick={()=>handleNext()}>İleri</Button></Grid.Column></Grid.Row>}
+      {progress && (
+        <Grid.Row>
+          <Grid.Column textAlign="center">
+            {" "}
+            <Button positive onClick={() => handleNext()}>
+              İleri
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      )}
     </Grid>
-    )
-}
+  );
+};

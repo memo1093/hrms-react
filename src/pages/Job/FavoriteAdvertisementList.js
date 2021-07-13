@@ -40,6 +40,7 @@ export const FavoriteAdvertisementList = () => {
               color="violet"
               link
               as={Link}
+              target="_blank"
               to={`/jobAdvertisements/${favorite.jobPositionAdvertisement.id}`}
               
             >
